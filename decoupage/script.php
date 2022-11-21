@@ -1,7 +1,8 @@
 <?php
-//  session_start();
+   session_start();
 
  include("cnx.php");
+  include("uploadimages.php");
 
 
 
@@ -90,9 +91,42 @@ if(isset($_POST['email']) && isset($_POST['password']))
                 $_SESSION['name']=$query_res['name'];
                 header("Location:../home.php");
             }
+            else
+            header('Location:../index.php?error=Email Or Password incorrect !!');
+
         
     }
 }
+
+
+
+
+
+
+// $file=$_FILES['file'];
+// $file_name=$_FILES['file']['name'];
+// $file_tmp_name=$_FILES['file']['tmp_name'];
+// $file_type=$_FILES['file']['type'];
+// $file_error=$_FILES['file']['error'];
+// $file_size=$_FILES['file']['size'];
+
+// $file_ext=explode('.',$file_name);
+// $file_act_ext=strtolower(end($file_ext));
+// $allowed=array('jpg','png','jpeg','pdf');
+
+// if(in_array($file_act_ext,$allowed))
+// {
+//         $file_new_name=uniqid('',true).".".$file_act_ext;
+//         $file_destination="uploads/".$file_new_name;
+//         move_uploaded_file($file_tmp_name,$file_destination);
+//         header("Location:index.php?uploadSeccess");
+// }
+// else
+// {
+//     echo "you can not upload files of this type !!";
+// }
+
+
 
 
 
@@ -108,15 +142,36 @@ if(isset($_POST['save']))
     function addProduct()
     {
         include("cnx.php");
-        $name=$_POST['name'];
-        $type=$_POST['type'];
-        $price=$_POST['price'];
-        $quantite=$_POST['quantite'];
-        $owner=$_POST['owner'];
-        $description=$_POST['description'];
-        $req="INSERT INTO `product` (`name`,`type`,`img`,`price`, `quantite`,`id_admin`,`description`) VALUES ('$name','$type','','$price','$quantite', '$owner','$description')";
-        mysqli_query($conn,$req);
-        header("Location:../home.php");
+
+      $file_name=$_FILES['file']['name'];
+      $file_tmp_name=$_FILES['file']['tmp_name'];
+      $file_type=$_FILES['file']['type'];
+      $file_error=$_FILES['file']['error'];
+      $file_size=$_FILES['file']['size'];
+      $name=$_POST['name'];
+      $type=$_POST['type'];
+      $price=$_POST['price'];
+      $quantite=$_POST['quantite'];
+      $owner=$_POST['owner'];
+      $description=$_POST['description'];
+
+$file_ext=explode('.',$file_name);
+$file_act_ext=strtolower(end($file_ext));
+$allowed=array('jpg','png','jpeg','pdf');
+
+if(in_array($file_act_ext,$allowed))
+{
+        $file_new_name=uniqid('',true).".".$file_act_ext;
+        $file_destination="uploads/".$file_new_name;
+        move_uploaded_file($file_tmp_name,$file_destination);
+        $img=$file_destination;  
+}
+else
+$img="uploads/pic.jpg";
+$req="INSERT INTO `product` (`name`,`type`,`img`,`price`, `quantite`,`id_admin`,`description`) VALUES ('$name','$type','$img','$price','$quantite', '$owner','$description')";
+mysqli_query($conn,$req);
+header("Location: home.php");
+
 
     }
 
@@ -128,6 +183,12 @@ if(isset($_POST['save']))
         function editProduct()
         {
             include("cnx.php");
+            $file_name=$_FILES['file']['name'];
+            $file_tmp_name=$_FILES['file']['tmp_name'];
+            $file_type=$_FILES['file']['type'];
+            $file_error=$_FILES['file']['error'];
+            $file_size=$_FILES['file']['size'];
+
             $id=$_POST['id'];
             $name=$_POST['name'];
             $type=$_POST['type'];
@@ -135,9 +196,22 @@ if(isset($_POST['save']))
             $quantite=$_POST['quantite'];
             $owner=$_POST['owner'];
             $description=$_POST['description'];
-        $req="UPDATE `product` SET `name` = '$name', `type` = '$type', `description` = '$description', `price` = '$price', `quantite` = '$quantite', `id_admin` = '$owner' WHERE `id` = '$id' ";
-        mysqli_query($conn,$req);
-        header("Location:../products.php");
+            $file_ext=explode('.',$file_name);
+            $file_act_ext=strtolower(end($file_ext));
+            $allowed=array('jpg','png','jpeg','pdf');
+            if(in_array($file_act_ext,$allowed))
+              {
+                $file_new_name=uniqid('',true).".".$file_act_ext;
+                $file_destination="uploads/".$file_new_name;
+                move_uploaded_file($file_tmp_name,$file_destination);
+                $img=$file_destination;
+
+             }
+             else
+                $img="uploads/pic.jpg";
+                $req="UPDATE `product` SET `name` = '$name', `type` = '$type', `description` = '$description', `price` = '$price', `quantite` = '$quantite', `id_admin` = '$owner',`img` = '$img' WHERE `id` = '$id' ";
+                mysqli_query($conn,$req);
+                header("Location: products.php");
 
         }   
 
@@ -153,7 +227,7 @@ if(isset($_POST['save']))
             
             $req="DELETE from product where id='$id'";
             mysqli_query($conn,$req);
-            header("Location:../products.php");
+            header("Location: products.php");
     
             } 
 
@@ -170,12 +244,13 @@ if(isset($_POST['save']))
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="./decoupage/script.php" method="POST">
+      <form action="" method="POST" enctype="multipart/form-data">
   <div class="mb-3">
   <input type="text" hidden  class="form-control" id="id" name="id" >
-
     <label class="form-label">Name</label>
-    <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="name" name="name" required >
+    <small  id="nameinvalid" class="text-danger">Enter Name !!</small>
+
   </div>
   <div class="mb-3">
     <label class="form-label">type</label>
@@ -189,15 +264,19 @@ if(isset($_POST['save']))
   </div>
   <div class="mb-3">
     <label  class="form-label">Image</label>
-    <input type="file"  class="form-control" id="image" name="image" aria-describedby="emailHelp">
+    <input type="file"  class="form-control" id="file" name="file" >
   </div>
   <div class="mb-3">
     <label  class="form-label">Price</label>
-    <input type="text" class="form-control" id="price" name="price" aria-describedby="emailHelp">
+    <input type="number" class="form-control" id="price" name="price" required >
+    <small  id="priceinvalid" class="text-danger">Enter Price !! </small>
+
   </div>
   <div class="mb-3">
     <label  class="form-label">Quantite</label>
-    <input type="number" class="form-control" id="quantite" name="quantite" aria-describedby="emailHelp">
+    <input type="number" class="form-control" id="quantite" name="quantite" required  >
+    <small  id="quantiteinvalid" class="text-danger">Enter Quantite !!</small>
+
   </div>
   <div class="mb-3">
     <label  class="form-label">Owner</label>
@@ -214,21 +293,21 @@ if(isset($_POST['save']))
   </div>
   <div class="mb-3">
     <label  class="form-label">Description</label>
-    <textarea class="form-control"  rows="4" name="description" id="description"></textarea>
-
+    <textarea class="form-control" rows="4"  name="description"  id="description" required ></textarea>
+    <small  id="descriptioninvalid" class="text-danger">Enter Description !!</small>
   </div>
       </div>
       <div class="modal-footer">
-      <button type="submit" class="btn btn-success" name="save">Save</button>
-        <button type="submit" class="btn btn-primary" name="edit">Edit</button>
-        <button type="submit" class="btn btn-danger" name="delete">Delete</button>
+      <button type="submit" class="btn btn-success " name="save" id="save">Save</button>
+        <button type="submit" class="btn btn-primary " name="edit" id="edit">Edit</button>
+        <button type="submit" class="btn btn-danger " name="delete" id="delete">Delete</button>
       </div>
       </form>
     </div>
   </div>
 </div>';
    
-  
+
     
 
    

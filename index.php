@@ -18,21 +18,21 @@
 <div class=" col-12 col-sm-8 col-md-6 col-lg-5 my-card card p-4 mt-5  ">
   <div class="card-body">
     <h5 class="card-title fw-bold  fs-2 ps-2">Sign in</h5>
-    <h6 class="card-subtitle mb-2 text-muted text-capitalize text-center p-2 sb-title "><span class="text-dark fs-4 text-uppercase m-3 text-white">login to your account</span></h6>
+    <h6 class="card-subtitle mb-2 text-muted text-capitalize text-center p-2 sb-title "><span class="text-dark fs-3 text-uppercase m-1 text-white">login to your account</span></h6>
     <?php if(!empty($_GET['error'])) {?>
     <div class="alert alert-danger" role="alert">
        <?php echo $_GET['error'];  ?>
     </div>
     <?php  }?>
 
-    <form action="decoupage/script.php" method="POST" id="form1">
+    <form action="./decoupage/script.php" method="POST" id="form1">
       <div class="mb-3">
         <label class="form-label">Email</label>
-        <input type="text" class="form-control" name="email" value="" placeholder="Enter your Email">
+        <input type="text" class="form-control" name="email"  placeholder="Enter your Email">
       </div>
       <div class="mb-3">
         <label  class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" placeholder="Enter your password" value="<?php  if(isset($_COOKIE['password_cookie'])) echo $_COOKIE['password_cookie'] ?>">
+        <input type="password" name="password" class="form-control" placeholder="Enter your password" >
       </div>
       <div class="mb-3 form-check form-switch ">
       <input type="checkbox" name="check" class="form-check-input" id="exampleCheck1" >

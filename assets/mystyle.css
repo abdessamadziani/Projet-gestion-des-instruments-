@@ -2,12 +2,30 @@
  body 
 {
   min-height: 100vh;
-  background: rgb(182,139,226);
-  background: linear-gradient(238deg, rgba(182,139,226,1) 38%, rgba(208,244,238,1) 51%, rgba(245,212,141,1) 58%);
+  /* background: rgb(182,139,226); */
+  /* background: linear-gradient(238deg, rgba(182,139,226,1) 38%, rgba(208,244,238,1) 51%, rgba(245,212,141,1) 58%); */
+  background: var(--bg-color);
   background-attachment: fixed;
 
   
+}
+:root
+{
+  --bg-color:linear-gradient(238deg, rgba(182,139,226,1) 38%, rgba(208,244,238,1) 51%, rgba(245,212,141,1) 58%) ;
+  --bg-side-bar:white;
+  --text-side-bar-color:rgb(0, 0, 0);
 } 
+.dark-theme
+{
+  --bg-color:linear-gradient(238deg, rgba(0,0,0,1) 39%, rgba(143,191,183,1) 67%, rgba(255,255,255,1) 74%);
+  --bg-side-bar:rgb(0, 0, 0);
+  --text-side-bar-color:rgb(255, 255, 255);
+
+}
+.txt
+{
+  color:var(--text-side-bar-color);
+}
 .hero
 {
    background-image: url(./imgs/tt.jpg);
@@ -48,10 +66,11 @@
 
 .side-bar
 {
-    position:absolute;
-    width:15%;
+    position:fixed;
+    width:18%;
+    top: 0;
     min-height:100vh;
-    background-color: rgb(255, 255, 255);
+    background-color:var(--bg-side-bar);
 
 
 }
@@ -61,7 +80,7 @@
 }
 .image 
 {
-    width: 60px;
+    width: 50px;
     
 }
 .image img 
@@ -87,8 +106,8 @@ ul a
 section
 {
     position:absolute;
-    left:15%;
-    width:85%;
+    left:18%;
+    width:82%;
     min-height:100%;
     /* background: rgb(182,139,226);
     background: linear-gradient(238deg, rgba(182,139,226,1) 38%, rgba(208,244,238,1) 51%, rgba(245,212,141,1) 58%);

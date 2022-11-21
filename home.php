@@ -1,11 +1,11 @@
 <?php
-session_start();
+include_once("decoupage/cnx.php");
+include_once("decoupage/script.php");
 if(!isset($_SESSION['name']))
 {
    header("Location:index.php");
 }
-include_once("decoupage/cnx.php");
- include_once("decoupage/script.php");
+
 
 
 $req="SELECT count(*) from product";
@@ -39,7 +39,7 @@ $products_n=mysqli_fetch_assoc($query);
     <section>
 
         <div class="container">
-        <button type="button" class="btn btn-info btn-lg text-capitalize text-white d-block mt-3 me-3 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal" >add new </button>
+        <button type="button" class="btn btn-info btn-lg text-capitalize text-white d-block mt-3 me-3 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btn-add" >add new </button>
         </div>
 
            <div class="card-items row container">
@@ -57,7 +57,7 @@ $products_n=mysqli_fetch_assoc($query);
             <div class="card-item card-4  col-lg-2">
             <i class=" icon fas fa-chart-line text-info"></i>
                 <h2 class="text-capitalize  pt-1">statistics</h2>
-                <span class="text-Secondary fw-bold fs-3"></span>
+                <span class="text-Secondary fw-bold fs-3">hello</span>
             </div>
 
             <div class="card-item card-3  col-lg-2">
@@ -70,75 +70,12 @@ $products_n=mysqli_fetch_assoc($query);
     </section>
 
 
-
-<!-- Modal -->
-
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <form action="./decoupage/script.php" method="POST">
-  <div class="mb-3">
-    <label class="form-label">Name</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" name="name" aria-describedby="emailHelp">
-  </div>
-  <div class="mb-3">
-    <label class="form-label">type</label>
-    <select name="type" class="form-select" aria-label="Default select example">
-  <option value="1">bowed strings</option>
-  <option value="2">woodwind</option>
-  <option value="3">brass</option>
-  <option value="4">percussion</option>
-  <option value="5">keyboard</option>
-</select>
-  </div>
-  <div class="mb-3">
-    <label  class="form-label">Image</label>
-    <input type="file"  class="form-control" id="exampleInputEmail1" name="image" aria-describedby="emailHelp">
-  </div>
-  <div class="mb-3">
-    <label  class="form-label">Price</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" name="price" aria-describedby="emailHelp">
-  </div>
-  <div class="mb-3">
-    <label  class="form-label">Quantite</label>
-    <input type="number" class="form-control" id="exampleInputEmail1" name="quantite" aria-describedby="emailHelp">
-  </div>
-  <div class="mb-3">
-    <label  class="form-label">Owner</label>
-    <select class="form-select" name="owner" aria-label="Default select example">
-      <?php
-          $req="SELECT id,name from admin";
-          $query=mysqli_query($conn,$req);
-          while($rows=mysqli_fetch_assoc($query)) 
-          { ?>
-              <option value="<?php echo $rows['id']; ?>"> <?php echo $rows['name']; ?></option>
-    <?php } ?>
-     
-</select>
-  </div>
-  <div class="mb-3">
-    <label  class="form-label">Description</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" name="description" aria-describedby="emailHelp">
-  </div>
-      </div>
-      <div class="modal-footer">
-      <button type="submit" class="btn btn-success" name="save">Save</button>
-        <button type="submit" class="btn btn-primary" name="edit">Edite</button>
-        <button type="submit" class="btn btn-danger" name="delete">Delete</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div> -->
     
 
 
     <script src="https://kit.fontawesome.com/24dbd9ce21.js" crossorigin="anonymous"></script>
 <script src="assets/js/bootstrap.bundle.js"></script> 
+<script src="assets/myscript.js"></script> 
+
 </body>
 </html>

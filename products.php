@@ -1,4 +1,5 @@
-<?php session_start() ;?>
+
+<?php   include("decoupage/script.php") ;?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,10 +14,8 @@
 <body>
  <?php include("decoupage/sidebar.php") ;
   include("decoupage/cnx.php") ;
-  include("decoupage/script.php") ;
 
-//   include("./home.php") ;
- $req="select * from product";
+  $req="select * from product";
  $query=mysqli_query($conn,$req);
  
  echo " <section>
@@ -30,6 +29,8 @@
     $quantite=$row['quantite'];
     $description=$row['description'];
     $owner=$row['id_admin'];
+    $img=$row['img'];
+
 
     echo"
     <div class='col-sm-12 col-md-6  col-lg-4 mb-3 ' data-bs-toggle='modal' data-bs-target='#exampleModal' onclick=showData($id)>
@@ -42,8 +43,10 @@
     <h6 id='quantite$id'   data='{$row["quantite"]}'></h6>
     <h6 id='description$id'   data='{$row["description"]}'></h6>
     <h6 id='id_admin$id'   data='{$row["id_admin"]}'></h6>
+    <h6 id='img$id'   data='{$row["img"]}'></h6>
+
     </div>
-        <img src='assets/imgs/pic.jpg' class='card-img-top' alt='...'>
+        <img src='{$row["img"]}'  class='card-img-top ' alt='...'>
         <div class='card-body'>
             <h5 class='card-title text-truncate'title='{$row["name"]}'>{$row['name']}</h5>
             <p class='card-text'>{$row['description']}</p>
