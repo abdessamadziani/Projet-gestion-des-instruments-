@@ -31,6 +31,17 @@ function showData(id)
 
 
 
+
+
+
+
+
+//for darkmode
+let myswitch=document.getElementById("dark-check");
+myswitch.onclick=function()
+{
+   document.body.classList.toggle("dark-theme");
+}
 //for validation error
 document.getElementById("name").oninvalid=function()
 {
@@ -90,14 +101,6 @@ document.getElementById("description").oninput=function()
 }
 
 
-
-
-//for darkmode
-let myswitch=document.getElementById("dark-check");
-myswitch.onclick=function()
-{
-    document.body.classList.toggle("dark-theme");
-}
 document.getElementById("btn-add").onclick=function()
 {
     document.getElementById('name').setCustomValidity('');

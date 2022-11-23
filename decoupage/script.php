@@ -5,6 +5,12 @@
   include("uploadimages.php");
 
 
+  if(isset($_POST['check']))
+{
+  setcookie('email_cookie',$_POST['email'],time()+60*60,'/');
+  setcookie('password_cookie',$_POST['password'],time()+60*60,'/');
+}
+
 
 // validaion sign up
 if(isset($_POST['ajouter']))
@@ -75,6 +81,9 @@ if(isset($_POST['signin']))
 
 
 
+
+
+
 if(isset($_POST['email']) && isset($_POST['password']))
 {
     if (!empty($_POST['email']) && !empty($_POST['password']))
@@ -89,6 +98,7 @@ if(isset($_POST['email']) && isset($_POST['password']))
             {
                 $query_res=mysqli_fetch_assoc($query);
                 $_SESSION['name']=$query_res['name'];
+               
                 header("Location:../home.php");
             }
             else
@@ -205,11 +215,14 @@ header("Location: home.php");
                 $file_destination="uploads/".$file_new_name;
                 move_uploaded_file($file_tmp_name,$file_destination);
                 $img=$file_destination;
+                $req="UPDATE `product` SET `name` = '$name', `type` = '$type', `description` = '$description', `price` = '$price', `quantite` = '$quantite', `id_admin` = '$owner',`img` = '$img' WHERE `id` = '$id' ";
+                mysqli_query($conn,$req);
+                header("Location: products.php");
 
              }
              else
-                $img="uploads/pic.jpg";
-                $req="UPDATE `product` SET `name` = '$name', `type` = '$type', `description` = '$description', `price` = '$price', `quantite` = '$quantite', `id_admin` = '$owner',`img` = '$img' WHERE `id` = '$id' ";
+
+                $req="UPDATE `product` SET `name` = '$name', `type` = '$type', `description` = '$description', `price` = '$price', `quantite` = '$quantite', `id_admin` = '$owner' WHERE `id` = '$id' ";
                 mysqli_query($conn,$req);
                 header("Location: products.php");
 
@@ -240,7 +253,7 @@ header("Location: home.php");
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+         <h5 class="modal-title" id="exampleModalLabel">modal</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -264,7 +277,7 @@ header("Location: home.php");
   </div>
   <div class="mb-3">
     <label  class="form-label">Image</label>
-    <input type="file"  class="form-control" id="file" name="file" >
+    <input type="file"  class="form-control"  id="file" name="file" >
   </div>
   <div class="mb-3">
     <label  class="form-label">Price</label>
@@ -299,7 +312,7 @@ header("Location: home.php");
       </div>
       <div class="modal-footer">
       <button type="submit" class="btn btn-success " name="save" id="save">Save</button>
-        <button type="submit" class="btn btn-primary " name="edit" id="edit">Edit</button>
+        <button type="submit" class="btn btn-primary " name="edit" id="edit">Update</button>
         <button type="submit" class="btn btn-danger " name="delete" id="delete">Delete</button>
       </div>
       </form>

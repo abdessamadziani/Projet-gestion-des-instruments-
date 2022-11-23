@@ -28,11 +28,11 @@
     <form action="./decoupage/script.php" method="POST" id="form1">
       <div class="mb-3">
         <label class="form-label">Email</label>
-        <input type="text" class="form-control" name="email"  placeholder="Enter your Email">
+        <input type="text" class="form-control" name="email" value="<?php if(isset($_COOKIE['email_cookie'])) echo $_COOKIE['email_cookie'];?>"  placeholder="Enter your Email">
       </div>
       <div class="mb-3">
         <label  class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" placeholder="Enter your password" >
+        <input type="password" name="password" class="form-control" placeholder="Enter your password" value="<?php if(isset($_COOKIE['password_cookie'])) echo $_COOKIE['password_cookie']; ?>" >
       </div>
       <div class="mb-3 form-check form-switch ">
       <input type="checkbox" name="check" class="form-check-input" id="exampleCheck1" >

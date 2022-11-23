@@ -6,10 +6,11 @@
   /* background: linear-gradient(238deg, rgba(182,139,226,1) 38%, rgba(208,244,238,1) 51%, rgba(245,212,141,1) 58%); */
   background: var(--bg-color);
   background-attachment: fixed;
+  font-family: cursive;
 
   
 }
-:root
+ :root
 {
   --bg-color:linear-gradient(238deg, rgba(182,139,226,1) 38%, rgba(208,244,238,1) 51%, rgba(245,212,141,1) 58%) ;
   --bg-side-bar:white;
@@ -21,7 +22,7 @@
   --bg-side-bar:rgb(0, 0, 0);
   --text-side-bar-color:rgb(255, 255, 255);
 
-}
+} 
 .txt
 {
   color:var(--text-side-bar-color);
@@ -46,7 +47,7 @@
     background-blend-mode:multiply;
     background-color: rgba(0, 0, 0, 0.3);
     color:white;
-     border:8px rgb(191, 11, 191) dotted;
+   border:8px rgb(191, 11, 191) dotted;
 
 
 }
@@ -109,9 +110,7 @@ section
     left:18%;
     width:82%;
     min-height:100%;
-    /* background: rgb(182,139,226);
-    background: linear-gradient(238deg, rgba(182,139,226,1) 38%, rgba(208,244,238,1) 51%, rgba(245,212,141,1) 58%);
-    background-attachment: fixed; */
+
     
 }
 
@@ -135,15 +134,6 @@ section
     color:white !important;
 
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -186,8 +176,30 @@ table tr
     width: 280px;
     padding: 30px 70px;
     border:6px dotted violet;
-
+    animation-name:spin;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  
   } 
+  
+  @keyframes spin
+  {
+    0%
+    {
+      transform: rotate(30deg);
+
+    }
+    50%
+    {
+      transform: rotate(-30deg);
+
+    }
+    100%{
+      transform: rotate(0deg);
+
+    }
+  }
 
   .card-item span {
     position: relative;
@@ -210,15 +222,19 @@ table tr
   .card-3 {
     background-color: #eee9cf;
   }
-  /* .card-3 span {
-    position: relative;
-    margin-left: -5%;
-  } */
+
   
   .card-4 {
     /* background: linear-gradient(110.42deg, #00c1fe 18.27%, #faffc1 91.84%); */
     background-color: #e8f745;
   }
+
+
+
+
+  
+
+
 
 
 

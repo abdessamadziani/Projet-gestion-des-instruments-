@@ -1,3 +1,4 @@
+ 
 <?php session_start() ;
 
     
@@ -24,61 +25,52 @@
 </head>
 <body>
  
-    <section>
-    <div class="container m-auto ">
-        <h1 class="text-info">Details Information</h1>
-    </div>
-    <table class=" container ms-5 table table-striped table-hover mt-3 my-table ">
-            <tr>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Quantite</th>
-            <th>Description</th>
-            <th>Owner</th>
-            <th>Image</th>
-            </tr>
+    <section class="mt-5">
             <?php  if(isset($_GET['id']))
     { 
         
         $id=$_GET['id'];
-        $req="select p.name as productName,category.name as categoryName,p.price,p.quantite,p.description,admin.name as owner from product p ,admin,category where p.id_admin=admin.id and p.type=category.id and p.id='$id'";
+        $req="select p.name as productName,category.name as categoryName,p.price,p.quantite,p.description,admin.name as owner,p.img as img from product p ,admin,category where p.id_admin=admin.id and p.type=category.id and p.id='$id'";
         $query=mysqli_query($conn,$req);
         $row=(mysqli_fetch_assoc($query));
 
-         echo "  <tr>
-        <td class='fs-2'> {$row['productName']} </td>
-        <td class='fs-2'> {$row['categoryName']}</td>
-        <td class='fs-2'> {$row['price']}</td>
-        <td class='fs-2'> {$row['quantite']}</td>
-        <td class='fs-2'> {$row['description']}</td>
-        <td class='fs-2'> {$row['owner'] }</td>
-        <td class='fs-2'><img src='./assets/imgs/pic.jpg' width='100px'/></td>
+    echo " 
+    <div class='card text-center'>
+  <div class='card-header text-info fs-4 bg-warning'>
+  Details Information
+  </div>
+  <div class='card-body'>
+    <h4 class='card-text'>Product Name : {$row['productName']}</h4>
+    <hr>
+    <h4 class='card-text'>Category : {$row['categoryName']}</h4>
+    <hr>
+    <h4 class='card-text'>Price : {$row['price']}</h4></h5>
+    <hr>
+    <h4 class='card-text'>Quantite : {$row['quantite']}</h4>
+    <hr>
+    <h4 class='card-text'>Description : {$row['description']}</h4>
+    <hr>
+    <h4 class='card-text'>Owner : {$row['owner']}</h4>
+    <hr>
+    <h4 class='card-text'>Image : <img class='rounded-circle' src='{$row["img"]}' width=150px />  </h4> 
 
-    </tr> ";
+  </div>
+  <div class='card-footer  bg-dark text-white' >
+    we are happy to give you your details 
+  </div>
+</div>
+    
+    
+    ";
+
+    
 
     } 
 else
 header('Location:product.php'); ?>
 
            
-            
-            <!-- <tr>
-                <td>hello</td>
-                <td>202 DH</td>
-                <td>43</td>
-                <td>Lorem ipsum dolor sit.</td>
-                <td>admin1</td>
-                <td><img src="assets/imgs/pic.jpg" width="100px" /></td>
-             </tr>
-             <tr>
-                <td>hello</td>
-                <td>202 DH</td>
-                <td>43</td>
-                <td>Lorem ipsum dolor sit amet consectetur</td>
-                <td>admin1</td>
-                <td><img src="assets/imgs/pic.jpg" width="100px" /></td>
-             </tr> -->
+        
  
     </table>
 
@@ -89,7 +81,9 @@ header('Location:product.php'); ?>
 
 
 
-    <script src="https://kit.fontawesome.com/24dbd9ce21.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/24dbd9ce21.js" crossorigin="anonymous"></script>
 <script src="assets/js/bootstrap.bundle.js"></script> 
+<script src="assets/myscript.js"></script> 
+
 </body>
 </html>

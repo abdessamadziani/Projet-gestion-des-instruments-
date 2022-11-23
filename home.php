@@ -20,6 +20,10 @@ $req="SELECT sum(price) from product";
 $query=mysqli_query($conn,$req);
 $products_n=mysqli_fetch_assoc($query);
 
+$req="SELECT max(price) from product";
+$query=mysqli_query($conn,$req);
+$max_price=mysqli_fetch_assoc($query);
+
 
 ?>
 
@@ -50,14 +54,14 @@ $products_n=mysqli_fetch_assoc($query);
             </div>
             <div class="card-item card-2  col-lg-2">
                 <i class=" icon fas fa-money-check-alt text-info"></i>
-                <h2 class="text-capitalize   pt-1">paiments</h2>
+                <h2 class="text-capitalize   pt-1">Total Price</h2>
                 <span class=" fw-bold text-Secondary fs-3"><?php echo $products_n['sum(price)'].' '.'DH' ?></span>
             </div>
 
             <div class="card-item card-4  col-lg-2">
             <i class=" icon fas fa-chart-line text-info"></i>
-                <h2 class="text-capitalize  pt-1">statistics</h2>
-                <span class="text-Secondary fw-bold fs-3">hello</span>
+                <h2 class="text-capitalize  pt-1">Max Price</h2>
+                <span class="text-Secondary fw-bold fs-3"><?php echo $max_price['max(price)'].' '.'DH' ?></span>
             </div>
 
             <div class="card-item card-3  col-lg-2">
@@ -66,11 +70,10 @@ $products_n=mysqli_fetch_assoc($query);
                 <span class=" fw-bold fs-3 text-Secondary text-uppercase"><?php echo $admin['count(*)'] ?></span>
             </div>
         </div>
+        
 
     </section>
-
-
-    
+ 
 
 
     <script src="https://kit.fontawesome.com/24dbd9ce21.js" crossorigin="anonymous"></script>
